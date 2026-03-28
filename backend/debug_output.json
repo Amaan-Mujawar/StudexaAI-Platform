@@ -1,0 +1,7 @@
+{
+  "status": 400,
+  "data": {
+    "message": "Invalid credentials",
+    "stack": "Error: Invalid credentials\n    at loginUserService (file:///C:/Users/Ninad/Downloads/student-ai-platform%20(2)%20amaan/student-ai-platform/backend/src/modules/auth/services/auth.service.js:153:17)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///C:/Users/Ninad/Downloads/student-ai-platform%20(2)%20amaan/student-ai-platform/backend/src/modules/auth/controllers/auth.controller.js:70:16"
+  }
+}
