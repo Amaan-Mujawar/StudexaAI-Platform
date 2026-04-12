@@ -6,31 +6,22 @@ import protect from "../../../middleware/auth.middleware.js";
 const router = express.Router();
 
 /* =====================================================
-   PUBLIC — Submit a ticket (optional auth — if logged in,
-   userId is captured; if not, name+email from form body)
+   GUEST — Strictly anonymous. No token/cookie read.
+   Called only from the public Contact page (/contact).
+   userId is ALWAYS null. No auth credentials used.
 ===================================================== */
-router.post("/", async (req, res, next) => {
-    // Optionally attach user if JWT exists — don't block if no token
-    const token =
-        req.cookies?.jwt ||
-        (req.headers.authorization?.startsWith("Bearer ")
-            ? req.headers.authorization.split(" ")[1]
-            : null);
-
-    if (token) {
-        // Try to authenticate, but don't fail if token is invalid
-        return protect(req, res, (err) => {
-            // Even if protect errors, we still proceed
-            if (err) req.user = null;
-            ticketController.createTicket(req, res, next);
-        });
-    }
-
-    return ticketController.createTicket(req, res, next);
-});
+router.post("/guest", ticketController.createGuestTicket);
 
 /* =====================================================
-   PROTECTED USER — Get own tickets
+   AUTHENTICATED USER — Requires valid JWT via protect.
+   Called only from /dashboard/tickets/new.
+   userId is ALWAYS req.user._id — guaranteed.
+===================================================== */
+router.post("/authenticated", protect, ticketController.createAuthenticatedTicket);
+
+/* =====================================================
+   AUTHENTICATED USER — Get own tickets
+   GET /api/tickets/my
 ===================================================== */
 router.get("/my", protect, ticketController.getMyTickets);
 

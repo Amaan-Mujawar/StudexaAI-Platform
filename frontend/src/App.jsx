@@ -60,6 +60,7 @@ import AdminContent from "./pages/Admin/Content.jsx";
 import AdminSettings from "./pages/Admin/Settings.jsx";
 import AdminTickets from "./pages/Admin/Tickets.jsx";
 import MyTickets from "./pages/UserDashboard/MyTickets.jsx";
+import NewTicketPage from "./pages/UserDashboard/NewTicketPage.jsx";
 
 /* ================= CORE APP ================= */
 const App = () => {
@@ -123,6 +124,7 @@ const App = () => {
               <Route path="resources" element={<ResourcesPage />} />
               <Route path="settings" element={<UserSettingsPage />} />
               <Route path="tickets" element={<MyTickets />} />
+              <Route path="tickets/new" element={<NewTicketPage />} />
               <Route path="contest/*" element={<ContestPage />} />
             </Route>
 

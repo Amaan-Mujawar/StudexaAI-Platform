@@ -49,6 +49,9 @@ export const AuthProvider = ({ children }) => {
     } catch {
       // even if backend fails, still clear UI state
     } finally {
+      // Clear the Bearer token from localStorage so it is NOT sent on
+      // subsequent requests (e.g. anonymous ticket POSTs from the Contact page)
+      localStorage.removeItem("studexa_token");
       setUser(null);
     }
   };

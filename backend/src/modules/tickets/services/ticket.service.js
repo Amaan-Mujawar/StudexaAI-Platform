@@ -145,17 +145,43 @@ export const updateTicketService = async (id, updates, adminEmail) => {
 
 /* =====================================================
    GET USER'S OWN TICKETS — Authenticated User
+   Matches:
+   1. Tickets explicitly linked to this userId (created via dashboard)
+   2. Tickets submitted with this email as a guest (userId = null)
+      — industry standard: email-based ticket claiming on login
 ===================================================== */
-export const getUserTicketsService = async (userId) => {
+export const getUserTicketsService = async ({ userId, email }) => {
     if (!isValidObjectId(userId)) {
         const err = new Error("Invalid user ID");
         err.statusCode = 400;
         throw err;
     }
 
-    const tickets = await Ticket.find({ userId })
+    const normalizedEmail = String(email || "").toLowerCase().trim();
+
+    // Build query: owned tickets OR guest tickets matching this email
+    const query = normalizedEmail
+        ? { $or: [{ userId }, { email: normalizedEmail, userId: null }] }
+        : { userId };
+
+    const tickets = await Ticket.find(query)
         .sort({ createdAt: -1 })
         .select("-userAgent -notificationSent -resolvedBy");
+
+    // Auto-link any orphaned guest tickets to this account
+    // so subsequent queries find them by userId (avoids re-scanning by email)
+    if (normalizedEmail && tickets.length > 0) {
+        const orphanIds = tickets
+            .filter((t) => !t.userId)
+            .map((t) => t._id);
+
+        if (orphanIds.length > 0) {
+            await Ticket.updateMany(
+                { _id: { $in: orphanIds } },
+                { $set: { userId } }
+            );
+        }
+    }
 
     return tickets;
 };

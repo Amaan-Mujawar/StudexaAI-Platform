@@ -194,7 +194,7 @@ const MyTickets = () => {
                                     Refresh
                                 </button>
                                 <Link
-                                    to="/contact"
+                                    to="/dashboard/tickets/new"
                                     className="btn-primary inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold"
                                 >
                                     <Plus className="h-4 w-4" />
@@ -221,10 +221,10 @@ const MyTickets = () => {
                         </div>
                         <p className="text-lg font-extrabold text-text-title">No tickets yet</p>
                         <p className="mt-2 text-sm text-text-muted max-w-xs mx-auto">
-                            Submit a support request from the Contact page and it will appear here.
+                            Click "Submit a Ticket" below to create your first support request.
                         </p>
                         <Link
-                            to="/contact"
+                            to="/dashboard/tickets/new"
                             className="btn-primary mt-6 inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold"
                         >
                             <Plus className="h-4 w-4" />

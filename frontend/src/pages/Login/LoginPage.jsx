@@ -1,7 +1,7 @@
 // src/pages/Login/LoginPage.jsx
 
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Sparkles,
@@ -102,7 +102,11 @@ const StepItem = ({ step, title, desc, state = "upcoming" }) => {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { setAuthenticatedUser } = useAuth();
+
+  // Where to go after login — ProtectedRoute and CTAs set location.state.from
+  const fromPath = location.state?.from || null;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -168,7 +172,8 @@ const LoginPage = () => {
       if (data?.role === "admin") {
         navigate("/admin", { replace: true });
       } else {
-        navigate("/dashboard", { replace: true });
+        // Honour the intended destination (e.g. /dashboard/tickets from a guest CTA)
+        navigate(fromPath || "/dashboard", { replace: true });
       }
     } catch {
       setError("Network error. Please try again.");

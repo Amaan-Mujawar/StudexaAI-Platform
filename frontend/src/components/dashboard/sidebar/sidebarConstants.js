@@ -10,8 +10,6 @@ import {
   MessageSquareText,
   Trophy,
   BookOpen,
-  Settings,
-  TicketIcon,
 } from "lucide-react";
 
 /* =====================================================
@@ -72,18 +70,6 @@ export const SIDEBAR_NAV_ITEMS = Object.freeze([
     label: "Resources",
     to: "/dashboard/resources",
     icon: BookOpen,
-  },
-  {
-    key: "tickets",
-    label: "My Tickets",
-    to: "/dashboard/tickets",
-    icon: TicketIcon,
-  },
-  {
-    key: "settings",
-    label: "Settings",
-    to: "/dashboard/settings",
-    icon: Settings,
   },
 ]);
 

@@ -1,6 +1,6 @@
 // src/pages/Landing/ContactPage.jsx
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Sparkles,
   Mail,
@@ -16,13 +16,15 @@ import {
   CheckCircle2,
   Loader2,
   Ticket,
+  LogIn,
+  UserPlus,
 } from "lucide-react";
 import { useContext, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import LandingNavbar from "../../components/landing/LandingNavbar.jsx";
 import FooterSection from "../../components/landing/sections/FooterSection.jsx";
-import { submitTicket } from "../../api/ticketsApi.js";
-import  AuthContext  from "../../context/AuthContext.jsx";
+import { submitGuestTicket } from "../../api/ticketsApi.js";
+import AuthContext from "../../context/AuthContext.jsx";
 
 const easePremium = [0.2, 0.8, 0.2, 1];
 
@@ -42,7 +44,6 @@ const fadeUp = {
 };
 
 const ContactPage = () => {
-  const navigate = useNavigate();
   const { user } = useContext(AuthContext) || {};
 
   useEffect(() => {
@@ -149,7 +150,7 @@ const ContactPage = () => {
     setErrors({});
     setSubmitting(true);
     try {
-      const result = await submitTicket({ ...form, subject });
+      const result = await submitGuestTicket({ ...form, subject });
       setSubmittedTicket(result.ticket);
       setSubmitted(true);
       toast.success("Ticket submitted! We'll be in touch.");
@@ -255,7 +256,7 @@ const ContactPage = () => {
               <div className="card overflow-hidden rounded-2xl border border-border bg-white/90 p-6 shadow-card backdrop-blur-xl sm:p-8">
 
                 {submitted && submittedTicket ? (
-                  /* ─── Success State ─── */
+                  /* ─── Success State — always shows Login/Register CTAs ─── */
                   <div className="flex flex-col items-center py-8 text-center">
                     <div className="mb-5 grid h-16 w-16 place-items-center rounded-2xl bg-green-50 border border-green-200">
                       <CheckCircle2 className="h-8 w-8 text-green-600" />
@@ -268,6 +269,7 @@ const ContactPage = () => {
                       <span className="font-semibold text-text-title">{form.email}</span>.
                     </p>
 
+                    {/* Ticket number badge */}
                     <div className="mt-5 rounded-2xl border border-border bg-surface-page px-5 py-4 w-full max-w-xs">
                       <div className="flex items-center gap-2 mb-1">
                         <Ticket className="h-4 w-4 text-brand-blue" />
@@ -279,27 +281,44 @@ const ContactPage = () => {
                       <p className="mt-1 text-xs text-text-muted">Status: Open — in our queue</p>
                     </div>
 
-                    <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                      {user && (
-                        <button
-                          onClick={() => navigate("/dashboard/tickets")}
-                          className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold"
-                        >
-                          View My Tickets
-                        </button>
-                      )}
-                      <button
-                        onClick={() => {
-                          setSubmitted(false);
-                          setSubmittedTicket(null);
-                          setForm({ name: user?.name || "", email: user?.email || "", message: "" });
-                          setSubject("support");
-                        }}
-                        className="btn-secondary inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold"
-                      >
-                        Submit Another
-                      </button>
+                    {/* Track-ticket callout */}
+                    <div className="mt-4 rounded-2xl border border-border bg-white/70 px-4 py-3 w-full max-w-sm text-left">
+                      <p className="text-xs leading-relaxed text-text-body">
+                        <span className="font-semibold text-text-title">Want to track this ticket?</span>{" "}
+                        Login or create a free account to view your ticket status and our team's responses in your personal dashboard.
+                      </p>
                     </div>
+
+                    {/* CTAs — always shown regardless of session state */}
+                    <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                      <Link
+                        to="/login"
+                        state={{ from: "/dashboard/tickets" }}
+                        className="btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold"
+                      >
+                        <LogIn className="h-4 w-4" />
+                        Login to Track Ticket
+                      </Link>
+                      <Link
+                        to="/register"
+                        className="btn-secondary inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold"
+                      >
+                        <UserPlus className="h-4 w-4" />
+                        Create a Free Account
+                      </Link>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        setSubmitted(false);
+                        setSubmittedTicket(null);
+                        setForm({ name: "", email: "", message: "" });
+                        setSubject("support");
+                      }}
+                      className="mt-3 text-xs text-text-muted underline underline-offset-2 hover:text-text-title transition"
+                    >
+                      Submit another ticket
+                    </button>
                   </div>
                 ) : (
                   /* ─── Form State ─── */

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ChevronDown, LogOut, PanelLeft, PanelRight } from "lucide-react";
+import { ChevronDown, LogOut, PanelLeft, PanelRight, Settings, Ticket } from "lucide-react";
 
 import cx from "../../utils/cx.js";
 import { logoutUser } from "../../api/authApi.js";
@@ -321,6 +321,46 @@ const DashboardSidebar = ({
             role="menu"
             aria-label="Account menu"
           >
+            {/* ── Settings ── */}
+            <button
+              type="button"
+              onClick={() => { handleNav("/dashboard/settings"); setMenuOpen(false); }}
+              className={cx(
+                "flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition",
+                "hover:bg-brand-blue/8"
+              )}
+            >
+              <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-white shadow-card">
+                <Settings className="h-4 w-4 text-brand-blue" />
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-extrabold text-text-title">Settings</p>
+                <p className="text-[11px] font-semibold text-text-muted">Account &amp; preferences</p>
+              </div>
+            </button>
+
+            {/* ── My Tickets ── */}
+            <button
+              type="button"
+              onClick={() => { handleNav("/dashboard/tickets"); setMenuOpen(false); }}
+              className={cx(
+                "flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition",
+                "hover:bg-brand-blue/8"
+              )}
+            >
+              <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-white shadow-card">
+                <Ticket className="h-4 w-4 text-brand-blue" />
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-extrabold text-text-title">My Tickets</p>
+                <p className="text-[11px] font-semibold text-text-muted">View support requests</p>
+              </div>
+            </button>
+
+            {/* ── Divider ── */}
+            <div className="mx-3 border-t border-border" />
+
+            {/* ── Logout ── */}
             <button
               type="button"
               onClick={handleLogout}
@@ -334,14 +374,11 @@ const DashboardSidebar = ({
               <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-white shadow-card">
                 <LogOut className="h-4 w-4 text-brand-blue" />
               </span>
-
               <div className="min-w-0">
                 <p className="text-sm font-extrabold text-text-title">
                   {loggingOut ? "Logging out..." : "Logout"}
                 </p>
-                <p className="text-[11px] font-semibold text-text-muted">
-                  End session securely
-                </p>
+                <p className="text-[11px] font-semibold text-text-muted">End session securely</p>
               </div>
             </button>
           </div>

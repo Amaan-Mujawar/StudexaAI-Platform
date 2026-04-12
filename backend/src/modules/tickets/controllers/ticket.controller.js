@@ -3,19 +3,19 @@ import asyncHandler from "../../../utils/asyncHandler.js";
 import * as ticketService from "../services/ticket.service.js";
 
 /* =====================================================
-   PUBLIC — Submit a new ticket
-   POST /api/tickets
+   GUEST — Submit ticket from public Contact page
+   POST /api/tickets/guest
+   - No authentication read of any kind
+   - userId is explicitly null — always
+   - Name + email come from the form body
 ===================================================== */
-export const createTicket = asyncHandler(async (req, res) => {
-    // Attach userId if the user is authenticated (optional)
-    const userId = req.user?._id || null;
-
+export const createGuestTicket = asyncHandler(async (req, res) => {
     const ticket = await ticketService.createTicketService(
         {
             ...req.body,
             userAgent: req.headers["user-agent"] || "",
         },
-        userId
+        null // ← explicitly null: this route never touches req.user
     );
 
     res.status(201).json({
@@ -31,11 +31,43 @@ export const createTicket = asyncHandler(async (req, res) => {
 });
 
 /* =====================================================
-   PROTECTED USER — Get own tickets
+   AUTHENTICATED USER — Submit ticket from dashboard
+   POST /api/tickets/authenticated
+   - protect middleware guarantees req.user is present
+   - userId is ALWAYS req.user._id — no guessing
+   - Name + email are taken from the body (pre-filled
+     from auth context on the frontend, but validated here)
+===================================================== */
+export const createAuthenticatedTicket = asyncHandler(async (req, res) => {
+    const ticket = await ticketService.createTicketService(
+        {
+            ...req.body,
+            userAgent: req.headers["user-agent"] || "",
+        },
+        req.user._id // ← guaranteed by protect middleware
+    );
+
+    res.status(201).json({
+        message: "Ticket submitted successfully. We'll get back to you soon!",
+        ticket: {
+            _id: ticket._id,
+            ticketNumber: ticket.ticketNumber,
+            subject: ticket.subject,
+            status: ticket.status,
+            createdAt: ticket.createdAt,
+        },
+    });
+});
+
+/* =====================================================
+   AUTHENTICATED USER — Get own tickets
    GET /api/tickets/my
 ===================================================== */
 export const getMyTickets = asyncHandler(async (req, res) => {
-    const tickets = await ticketService.getUserTicketsService(req.user._id);
+    const tickets = await ticketService.getUserTicketsService({
+        userId: req.user._id,
+        email: req.user.email,   // used to claim guest tickets by email match
+    });
     res.status(200).json({ tickets });
 });
 
