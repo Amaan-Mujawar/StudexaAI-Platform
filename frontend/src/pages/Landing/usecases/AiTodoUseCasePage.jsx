@@ -349,7 +349,7 @@ const AiTodoUseCasePage = () => {
 
               <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <Link
-                  to="/signup"
+                  to="/register"
                   className="btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold"
                 >
                   <UserPlus className="h-4 w-4" />
