@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import UseCasesDropdown from "./UseCasesDropdown.jsx";
 import cx from "../../utils/cx.js";
+import studexaLogo from "../../assets/brand/studexaai-logo.png";
 
 const navLinkBase =
   "relative inline-flex items-center gap-1.5 px-2 py-2 text-sm font-semibold transition-colors duration-200";
@@ -120,7 +121,7 @@ const LandingNavbar = () => {
           {/* Left: Logo */}
           <Link to="/" className="flex items-center">
             <img
-              src="/src/assets/brand/studexaai-logo.png"
+              src={studexaLogo}
               alt="StudexaAI"
               className="h-10 w-auto select-none object-contain sm:h-11"
               draggable={false}

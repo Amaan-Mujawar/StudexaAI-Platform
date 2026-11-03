@@ -61,13 +61,13 @@ const FooterSection = () => {
             </div>
 
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/75">
-              StudexaAI is a free learning + productivity platform for students
+              StudexaAI is an intelligent learning + productivity platform for students
               and professionals. Built to solve consistency, revision, and
-              interview practice — in one loop.
+              interview practice — in one unified loop.
             </p>
 
             <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-white/90">
-              ✅ 100% Free for learners
+              ⚡ AI-Powered Learning Platform
             </div>
           </div>
 
