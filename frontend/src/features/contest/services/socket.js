@@ -6,7 +6,8 @@ let socket = null;
 
 export const getSocket = () => {
     if (!socket) {
-        socket = io("", {
+        const rawUrl = (import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || "").replace(/\/api\/?$/, "").replace(/\/+$/, "");
+        socket = io(rawUrl || undefined, {
             withCredentials: true,
             transports: ["websocket", "polling"],
             autoConnect: false, // connect manually so we control timing

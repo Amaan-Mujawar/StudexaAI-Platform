@@ -134,8 +134,8 @@ const LoginPage = () => {
       setLoading(true);
       setError(null);
 
-      // Ensure no trailing slash
-      const API_BASE = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
+      // Ensure no trailing slash or redundant /api suffix
+      const API_BASE = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/api\/?$/, "").replace(/\/+$/, "");
 
       const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",

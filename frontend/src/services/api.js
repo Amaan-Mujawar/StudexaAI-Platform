@@ -10,8 +10,11 @@ import axios from "axios";
    - Works across all features
 ===================================================== */
 
+const rawUrl = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/+$/, "");
+const baseURL = rawUrl.endsWith("/api") ? rawUrl : `${rawUrl}/api`;
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL,
   withCredentials: true, // REQUIRED for cookie auth
   timeout: 15000,
   headers: {

@@ -125,7 +125,7 @@ const ForgotPasswordPage = () => {
       setLoading(true);
       setError(null);
 
-      const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const API_BASE = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/api\/?$/, "").replace(/\/+$/, "");
       const res = await fetch(`${API_BASE}/api/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
