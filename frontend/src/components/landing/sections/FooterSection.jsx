@@ -205,7 +205,7 @@ const FooterSection = () => {
         >
           <p className="inline-flex items-center gap-2 text-sm text-white/65">
             <Copyright className="h-4 w-4 text-white/60" />
-            2026 Amaan Mujawar. All Rights Reserved.
+            © 2026 Amaan Mujawar. All Rights Reserved.
           </p>
 
           <p className="text-sm font-semibold text-white">

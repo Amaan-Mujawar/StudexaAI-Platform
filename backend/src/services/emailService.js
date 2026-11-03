@@ -167,7 +167,7 @@ const buildResolvedEmailHtml = (ticket) => {
                           <p style="margin:0 0 18px;font-size:13px;color:#64748b;line-height:1.6;">
                             If your issue persists or you have additional questions, we're here for you.
                           </p>
-                          <a href="${process.env.CLIENT_URL || "http://localhost:5173"}/contact"
+                          <a href="${process.env.FRONTEND_URL || process.env.CLIENT_URL || "http://localhost:5173"}/contact"
                              style="display:inline-block;background:linear-gradient(135deg,#2563eb 0%,#06b6d4 100%);color:#ffffff;text-decoration:none;font-size:13px;font-weight:700;padding:12px 28px;border-radius:10px;letter-spacing:0.01em;">
                             Submit Another Ticket →
                           </a>

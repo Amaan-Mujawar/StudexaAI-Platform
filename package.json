@@ -1,0 +1,12 @@
+{
+  "name": "studexa-ai-platform",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Amaan Mujawar",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
+}
+

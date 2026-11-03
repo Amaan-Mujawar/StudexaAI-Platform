@@ -31,11 +31,24 @@ const app = express();
 
 app.set("trust proxy", 1);
 
-/* ================= CORS (COOKIE-SAFE) ================= */
+/* ================= STRICT CORS LOCKDOWN ================= */
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.CLIENT_URL,
+  process.env.NODE_ENV !== "production" ? "http://localhost:5173" : null,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Blocked by CORS policy: Unauthorized Origin"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   })
 );
 

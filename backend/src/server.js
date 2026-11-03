@@ -13,9 +13,21 @@ const PORT = process.env.PORT || 5000;
 /* ─── HTTP + Socket.io setup ─── */
 const httpServer = createServer(app);
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.CLIENT_URL,
+  process.env.NODE_ENV !== "production" ? "http://localhost:5173" : null,
+].filter(Boolean);
+
 export const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Blocked by CORS policy: Unauthorized Origin"));
+      }
+    },
     credentials: true,
   },
 });

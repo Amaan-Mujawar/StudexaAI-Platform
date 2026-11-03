@@ -7,13 +7,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+node_modules/
+dist/
+dist-ssr/
+build/
 
 # Environment secrets — never commit these
 .env
+.env.*
 .env.local
+.env.development
+.env.production
 .env.development.local
 .env.test.local
 .env.production.local
