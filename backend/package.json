@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
+    "seed:contest": "node scripts/seedContestQuestions.js",
+    "clean:throttle": "node scripts/clean-auththrottles-index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
