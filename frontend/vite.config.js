@@ -71,8 +71,9 @@ export default defineConfig({
             },
           },
           // API calls — NetworkFirst (fresh data preferred, fall back to cache)
+          // ⚠️ Auth endpoints (/api/auth/*) are excluded — credentials must never be served from cache
           {
-            urlPattern: /^https?:\/\/.*\/api\/.*/i,
+            urlPattern: /^https?:\/\/.*\/api\/(?!auth\/).*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',

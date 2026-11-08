@@ -93,7 +93,6 @@ const AdminDashboard = () => {
         setData(basic);
         setAdvanced(adv);
       } catch (err) {
-        console.error("Failed to fetch analytics:", err);
         setError("Failed to load dashboard data. Please try again.");
       } finally {
         setLoading(false);

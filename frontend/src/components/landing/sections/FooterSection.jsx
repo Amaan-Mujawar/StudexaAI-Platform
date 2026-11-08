@@ -46,8 +46,9 @@ const FooterSection = () => {
                 <img
                   src="/icons/favicon.png"
                   alt="StudexaAI"
+                  width={32}
+                  height={32}
                   className="h-8 w-8 rounded-xl object-contain"
-                  loading="lazy"
                   draggable="false"
                 />
               </div>

@@ -38,8 +38,7 @@ export const VerbalReasoningProvider = ({ children }) => {
           })),
         });
       }
-    } catch (err) {
-      console.error("[VerbalReasoningContext] loadHistory error:", err);
+    } catch {
       showEmptySidebarHistory("Verbal Reasoning");
     } finally {
       setLoading(false);
@@ -68,7 +67,7 @@ export const VerbalReasoningProvider = ({ children }) => {
       setHistory(prev => prev.filter(q => (q._id || q.id) !== id));
       loadHistory();
     } catch (err) {
-      console.error("[VerbalReasoningContext] deleteAttempt error:", err);
+      // Re-throw so the caller (UI) can show feedback to the user
       throw err;
     }
   };

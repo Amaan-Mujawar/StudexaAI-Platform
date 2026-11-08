@@ -18,10 +18,10 @@ export const AuthProvider = ({ children }) => {
       try {
         const me = await getMe();
         setUser(me);
-      } catch (err) {
-        // ✅ 401 = not logged in (expected)
-        if (err?.status === 401) setUser(null);
-        else console.error("Auth restore failed:", err);
+      } catch {
+        // 401 and all network/offline/SW errors are already handled silently in authApi.getMe()
+        // Any remaining error still means unauthenticated — clear user state
+        setUser(null);
       } finally {
         setBootLoading(false);
       }

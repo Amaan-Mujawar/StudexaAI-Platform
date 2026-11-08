@@ -24,13 +24,9 @@ export const getMe = async () => {
     // Silent unauthenticated state
     if (status === 401) return null;
 
-    // Network / connection errors → treat as unauthenticated so UI doesn't hang
-    if (
-      status == null &&
-      (err?.message?.includes("Network") || err?.code === "ERR_NETWORK")
-    ) {
-      return null;
-    }
+    // Network / connection errors, Workbox SW errors, offline → treat as unauthenticated
+    // Covers: ERR_NETWORK, ERR_CONNECTION_RESET, Workbox no-response, any other fetch failure
+    if (status == null) return null;
 
     throw err;
   }

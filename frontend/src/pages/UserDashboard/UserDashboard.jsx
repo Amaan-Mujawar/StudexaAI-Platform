@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import api from "../../services/api.js";
 import {
   Sparkles,
   LayoutDashboard,
@@ -61,12 +62,10 @@ const UserDashboard = () => {
 
   const loadResources = async () => {
     try {
-      // Use the public content API directly
-      const res = await fetch("http://localhost:5000/api/content?limit=3");
-      const data = await res.json();
-      setResources(data.content || []);
-    } catch (e) {
-      console.error("Failed to fetch dashboard resources", e);
+      const res = await api.get("/content", { params: { limit: 3 } });
+      setResources(res.data?.content || []);
+    } catch {
+      // Resources are non-critical — silently fall back to empty list
     }
   };
 

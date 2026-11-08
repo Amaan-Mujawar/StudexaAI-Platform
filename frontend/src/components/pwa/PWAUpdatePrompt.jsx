@@ -20,8 +20,9 @@ const PWAUpdatePrompt = () => {
         setInterval(() => r.update(), 60 * 60 * 1000);
       }
     },
-    onRegisterError(error) {
-      console.warn("[PWA] Service worker registration error:", error);
+    onRegisterError(_error) {
+      // SW registration failures are silently ignored in production;
+      // the app still works fully without the service worker.
     },
   });
 

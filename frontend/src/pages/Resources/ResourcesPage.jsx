@@ -73,7 +73,6 @@ const ResourcesPage = () => {
                 setResources(res.data.content || []);
                 setTotal(res.data.pagination?.total ?? (res.data.content?.length || 0));
             } catch (err) {
-                console.error("Failed to fetch resources", err);
                 setError(err?.message || "Failed to load resources");
                 setResources([]);
                 setTotal(0);

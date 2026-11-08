@@ -38,8 +38,7 @@ export const AiQuizProvider = ({ children }) => {
           })),
         });
       }
-    } catch (err) {
-      console.error("[AiQuizContext] loadHistory error:", err);
+    } catch {
       showEmptySidebarHistory("AI Quizzes");
     } finally {
       setLoading(false);
@@ -71,7 +70,7 @@ export const AiQuizProvider = ({ children }) => {
       // Update sidebar
       loadHistory();
     } catch (err) {
-      console.error("[AiQuizContext] deleteAttempt error:", err);
+      // Re-throw so the caller (UI) can show feedback to the user
       throw err;
     }
   };
