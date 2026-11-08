@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live%20Platform-blue?style=for-the-badge&logo=vercel)](https://studexa-ai.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20Platform-blue?style=for-the-badge&logo=vercel)](https://studexaai.vercel.app)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-emerald?style=for-the-badge&logo=statuspage)](/)
 [![Stack](https://img.shields.io/badge/Stack-MERN%20%2B%20Groq%20AI-blue?style=for-the-badge&logo=react)](/)
 [![AI Engine](https://img.shields.io/badge/AI%20Engine-GPT--OSS%20120B%20%2B%20Qwen%20Failover-orange?style=for-the-badge&logo=openai)](/)
@@ -11,7 +11,7 @@
 
 **A fullstack, AI-driven educational ecosystem that empowers students through automated study notes, adaptive quizzes, cognitive practice modules, gamified contests, and seamless academic workflow management.**
 
-🌐 **Live Application Demo**: [studexa-ai.vercel.app](https://studexa-ai.vercel.app) *(Deployment target)*
+🌐 **Live Application**: [studexaai.vercel.app](https://studexaai.vercel.app) *(Live Application)*
 
 </div>
 
@@ -309,7 +309,7 @@ erDiagram
 
 | Role | Author | Responsibility |
 |---|---|---|
-| 👑 **Sole Creator & Lead Architect** | **Amaan Mujawar** | End-to-end System Design, Fullstack Architecture, AI Resilience, Security & Core Engineering |
+| **Sole Creator & Lead Architect** | **Amaan Mujawar** | End-to-end System Design, Fullstack Architecture, AI Resilience, Security & Core Engineering |
 
 ---
 
